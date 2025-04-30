@@ -5,6 +5,13 @@ use Livewire\Volt\Volt;
 use App\Livewire\Admin\Rooms\Index;
 use App\Livewire\Admin\Rooms\Create;
 use App\Livewire\Admin\Rooms\Edit;
+
+use App\Livewire\Admin\Users\Userindex;
+use App\Livewire\Admin\Users\Usercreate;
+use App\Livewire\Admin\Users\Useredit;
+
+
+
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Admin\AdminDashboard;
 
@@ -36,6 +43,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/rooms', Index::class)->name('admin.rooms.index');
     Route::get('/rooms/create', Create::class)->name('admin.rooms.create');
     Route::get('/rooms/{id}/edit', Edit::class)->name('admin.rooms.edit');
+    // Route for the admin user management
+    Route::get('/admin/users', Userindex::class)->name('admin.users.userindex');
+    Route::get('/admin/users/create', Usercreate::class)->name('admin.users.usercreate');
+    Route::get('/admin/users/{user}/edit', Useredit::class)->name('admin.users.useredit');
 });
 
 // Include authentication-related routes
