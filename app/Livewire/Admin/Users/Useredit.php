@@ -8,12 +8,13 @@ use App\Models\User;
 class Useredit extends Component
 {   
 
-    public $user, $name, $email, $password, $role;
+    public $user, $name, $email, $password, $password_confirmation, $role;
 
     protected $rules = [
         'name' => 'required|string|max:255',
         'email' => 'required|email|max:255|unique:users,email',
         'password' => 'nullable|string|min:8|confirmed',
+        'password_confirmation' => 'nullable|string|min:8',
         'role' => 'required|in:user,admin',
     ];
     public function mount($user)

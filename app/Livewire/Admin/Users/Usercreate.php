@@ -6,12 +6,13 @@ use Livewire\Component;
 
 class Usercreate extends Component
 {   
-    public $name, $email, $password, $role;
+    public $name, $email, $password, $password_confirmation, $role;
 
     protected $rules = [
         'name' => 'required|string|max:255',
         'email' => 'required|email|max:255|unique:users,email',
         'password' => 'required|string|min:8|confirmed',
+        'password_confirmation' => 'required|string|min:8',
         'role' => 'required|in:user,admin',
     ];
     
@@ -32,7 +33,7 @@ class Usercreate extends Component
 
         // Optionally, redirect or show a success message
         session()->flash('message', 'User created successfully.');
-        return redirect()->route('admin.users.index');
+        return redirect()->route('admin.users.userindex');
     }
 
     public function render()

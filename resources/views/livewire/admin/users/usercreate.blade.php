@@ -24,6 +24,13 @@
         </div>
 
         <div>
+            <label class="block mb-1 text-sm font-medium">Confirm Password</label>
+            <input type="password" wire:model.defer="password_confirmation"
+                   class="w-full rounded-lg bg-neutral-800 text-white border border-neutral-700 focus:ring-blue-500 focus:border-blue-500"/>
+            @error('password_confirmation') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        </div>
+
+        <div>
             <label class="block mb-1 text-sm font-medium">Role</label>
             <select wire:model.defer="role"
                     class="w-full rounded-lg bg-neutral-800 text-white border border-neutral-700 focus:ring-blue-500 focus:border-blue-500">
