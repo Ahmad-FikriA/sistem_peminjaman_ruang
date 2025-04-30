@@ -11,6 +11,7 @@
                 <x-app-logo />
             </a>
 
+            @if(auth()->user()->role == 'admin')
             <flux:navlist variant="outline">
                 <flux:navlist.item icon="home" :href="route( auth()->user()->role == 'user' ? 'dashboard' : 'admin.dashboard')" :current="request()->routeIs(auth()->user()->role == 'user' ? 'dashboard' : 'admin.dashboard' )" wire:navigate>{{ __('Home') }}</flux:navlist.item>
                 <flux:navlist.group :heading="__('Data Admin')" class="grid">
@@ -20,6 +21,16 @@
                     <flux:navlist.item icon="inbox" :href="route( auth()->user()->role == 'user' ? 'dashboard' : 'admin.dashboard')" :current="request()->routeIs(auth()->user()->role == 'user' ? 'dashboard' : 'admin.dashboard' )" wire:navigate>{{ __('Laporan Booking') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
+            @elseif(auth()->user()->role == 'user')
+            <flux:navlist variant="outline">
+                <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Home') }}</flux:navlist.item>
+                <flux:navlist.group :heading="__('Data User')" class="grid">
+                    <flux:navlist.item icon="inbox" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Booked Rooms') }}</flux:navlist.item>
+                </flux:navlist.group>    
+            </flux:navlist>
+            @endif
+
+            
 
             <flux:spacer />
 
