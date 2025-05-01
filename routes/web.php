@@ -10,14 +10,16 @@ use App\Livewire\Admin\Users\Userindex;
 use App\Livewire\Admin\Users\Usercreate;
 use App\Livewire\Admin\Users\Useredit;
 
+use App\Livewire\Admin\Booking\BookingManagement;
 
+use App\Livewire\UserBooking;
 
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Admin\AdminDashboard;
 
 // Route for the home page
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 })->name('home');
 
 // Route for the user dashboard (requires authentication and email verification)
@@ -47,7 +49,19 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/users', Userindex::class)->name('admin.users.userindex');
     Route::get('/admin/users/create', Usercreate::class)->name('admin.users.usercreate');
     Route::get('/admin/users/{user}/edit', Useredit::class)->name('admin.users.useredit');
+
+    // Route for the admin booking management
+    Route::get('/admin/bookings', BookingManagement::class)->name('admin.booking');
 });
+
+// Group of routes that require authentication and user privileges
+Route::middleware(['auth'])->group(function () {
+    // Route for the user booking form
+    Route::get('my-booking', UserBooking::class)->name('user.booking');
+
+});
+
+
 
 // Include authentication-related routes
 require __DIR__.'/auth.php';
