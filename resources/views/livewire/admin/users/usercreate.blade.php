@@ -1,4 +1,4 @@
-<div class="flex min-h-screen flex-col gap-6 bg-gray-900 p-6">
+<div class="flex min-h-screen flex-col gap-6 p-6">
     <!-- Header -->
     <div class="flex items-center justify-between">
         <div>
@@ -16,7 +16,7 @@
 
     <!-- Form -->
     <div class="mx-auto w-full max-w-2xl">
-        <form wire:submit.prevent="save" class="space-y-6 rounded-xl bg-gray-800 p-6 shadow-lg">
+        <form wire:submit.prevent="store" class="space-y-6 rounded-xl bg-gray-800 p-6 shadow-lg">
             <!-- Name Field -->
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-200">Name</label>
@@ -52,6 +52,19 @@
                            placeholder="Enter user's password">
                 </div>
                 @error('password')
+                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Password Confirmation Field -->
+            <div>
+                <label for="password_confirmation" class="block text-sm font-medium text-gray-200">Confirm Password</label>
+                <div class="mt-1">
+                    <input type="password" wire:model="password_confirmation" id="password_confirmation"
+                           class="block w-full rounded-lg border-gray-600 bg-gray-700 px-4 py-2.5 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
+                           placeholder="Confirm user's password">
+                </div>
+                @error('password_confirmation')
                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                 @enderror
             </div>

@@ -13,8 +13,13 @@ class Create extends Component
         'description' => 'nullable|string|max:1000',
         'location' => 'nullable|string|max:255',
         'capacity' => 'required|integer|min:1',
-        'is_available' => 'boolean',
+        'is_available' => 'required|in:1,0',
     ];
+
+    public function mount()
+    {
+        $this->is_available = '1'; // Set default value to Available
+    }
 
     public function store()
     {
@@ -26,7 +31,7 @@ class Create extends Component
             'description' => $this->description,
             'location' => $this->location,
             'capacity' => $this->capacity,
-            'is_available' => $this->is_available,
+            'is_available' => (bool) $this->is_available,
         ]);
 
         // Reset the form fields

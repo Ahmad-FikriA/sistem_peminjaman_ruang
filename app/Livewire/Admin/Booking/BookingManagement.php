@@ -56,8 +56,8 @@ class BookingManagement extends Component
         // Check if theres a booking conflict
         $conflict = Booking::where('room_id', $this->roomId)
             ->where(function ($query) {
-                $query->whereBetween('start_date', [$this->startDate, $this->endDate])
-                      ->orWhereBetween('end_date', [$this->startDate, $this->endDate]);
+                $query->where('start_date', '<=', $this->endDate)
+                      ->where('end_date', '>=', $this->startDate);
             })
             ->when($this->bookingId, function ($query) {
                 $query->where('id', '!=', $this->bookingId);

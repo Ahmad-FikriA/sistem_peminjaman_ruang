@@ -1,5 +1,5 @@
 <!-- resources/views/livewire/admin/room/create.blade.php -->
-<div class="flex min-h-screen flex-col gap-6 bg-gray-900 p-6">
+<div class="flex min-h-screen flex-col gap-6  p-6">
     <div class="mx-auto w-full max-w-2xl">
         <!-- Header -->
         <div class="mb-8">
