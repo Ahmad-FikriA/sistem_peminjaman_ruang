@@ -25,7 +25,7 @@ class UserBooking extends Component
     public function mount()
     {   
         $this->status = 'pending';
-        $this->rooms = Room::all();
+        $this->rooms = Room::where('is_available', true)->get();
         $this->bookings = Booking::where('user_id', Auth::id())->get();
     }
     public function resetInputFields()
@@ -49,18 +49,28 @@ class UserBooking extends Component
     {
         $this->validate();
 
-        // Check if there's a booking conflict
+        // Check if room is available
+        $room = Room::find($this->roomId);
+        if (!$room || !$room->is_available) {
+            session()->flash('error', 'This room is currently unavailable.');
+            return;
+        }
+
+        // Check if there's a booking conflict for this specific room
         $conflict = Booking::where('room_id', $this->roomId)
             ->where(function ($query) {
-                $query->whereBetween('start_date', [$this->startDate, $this->endDate])
-                      ->orWhereBetween('end_date', [$this->startDate, $this->endDate]);
+                $query->where('start_date', '<=', $this->endDate)
+                      ->where('end_date', '>=', $this->startDate);
             })
+            ->where('status', '!=', 'cancelled') // Don't consider cancelled bookings
+            ->where('status', '!=', 'rejected')  // Don't consider rejected bookings
             ->when($this->bookingId, function ($query) {
                 $query->where('id', '!=', $this->bookingId);
             })
             ->exists();
+
         if ($conflict) {
-            session()->flash('error', 'Booking conflict detected. Please choose different dates.');
+            session()->flash('error', 'This room is already booked for the selected dates. Please choose different dates or a different room.');
             return;
         }
         

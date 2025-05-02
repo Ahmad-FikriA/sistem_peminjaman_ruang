@@ -27,6 +27,7 @@ class BookingManagement extends Component
         $this->bookings = Booking::all();
         $this->rooms = Room::all();
         $this->users = User::all();
+        $this->status = 'pending';
     }
 
     public function resetInputFields()
