@@ -18,7 +18,7 @@
                     <flux:navlist.item icon="inbox" :href="route( auth()->user()->role == 'user' ? 'dashboard' : 'admin.rooms.index')" :current="request()->routeIs(auth()->user()->role == 'user' ? 'dashboard' : 'admin.rooms.index')" wire:navigate>{{ __('Pengelolaan Ruangan') }}</flux:navlist.item>
                     <flux:navlist.item icon="inbox" :href="route( auth()->user()->role == 'user' ? 'dashboard' : 'admin.users.userindex')" :current="request()->routeIs(auth()->user()->role == 'user' ? 'dashboard' : 'admin.users.userindex' )" wire:navigate>{{ __('Pengelolaan User') }}</flux:navlist.item>
                     <flux:navlist.item icon="inbox" :href="route( auth()->user()->role == 'user' ? 'dashboard' : 'admin.booking')" :current="request()->routeIs(auth()->user()->role == 'user' ? 'dashboard' : 'admin.booking' )" wire:navigate>{{ __('Pengelolaan Booking') }}</flux:navlist.item>
-                    <flux:navlist.item icon="inbox" :href="route( auth()->user()->role == 'user' ? 'dashboard' : 'admin.dashboard')" :current="request()->routeIs(auth()->user()->role == 'user' ? 'dashboard' : 'admin.dashboard' )" wire:navigate>{{ __('Laporan Booking') }}</flux:navlist.item>
+                    <flux:navlist.item icon="inbox" :href="route( auth()->user()->role == 'user' ? 'dashboard' : 'admin.reports')" :current="request()->routeIs(auth()->user()->role == 'user' ? 'dashboard' : 'admin.reports' )" wire:navigate>{{ __('Laporan Booking') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
             @elseif(auth()->user()->role == 'user')

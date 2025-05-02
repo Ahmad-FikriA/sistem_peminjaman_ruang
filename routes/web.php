@@ -11,6 +11,7 @@ use App\Livewire\Admin\Users\Usercreate;
 use App\Livewire\Admin\Users\Useredit;
 
 use App\Livewire\Admin\Booking\BookingManagement;
+use App\Livewire\Admin\ReportManagement;
 
 use App\Livewire\UserBooking;
 
@@ -52,6 +53,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // Route for the admin booking management
     Route::get('/admin/bookings', BookingManagement::class)->name('admin.booking');
+
+    // Route for the admin reports
+    Route::get('/admin/reports', ReportManagement::class)->name('admin.reports');
 });
 
 // Group of routes that require authentication and user privileges

@@ -53,6 +53,21 @@ class BookingManagement extends Component
     {
         $this->validate();
 
+        // Check if theres a booking conflict
+        $conflict = Booking::where('room_id', $this->roomId)
+            ->where(function ($query) {
+                $query->whereBetween('start_date', [$this->startDate, $this->endDate])
+                      ->orWhereBetween('end_date', [$this->startDate, $this->endDate]);
+            })
+            ->when($this->bookingId, function ($query) {
+                $query->where('id', '!=', $this->bookingId);
+            })
+            ->exists();
+        if ($conflict) {
+            session()->flash('error', 'Booking conflict detected. Please choose different dates.');
+            return;
+        }
+
         if ($this->bookingId) {
             $booking = Booking::find($this->bookingId);
             $booking->update([
