@@ -28,15 +28,7 @@ class UserCalendar extends Component
 
     public function checkAvailableRooms()
     {
-        $this->availableRooms = Room::where('is_available', true)
-            ->whereDoesntHave('bookings', function ($query) {
-                $query->where('status', '!=', 'cancelled')
-                    ->where(function ($q) {
-                        $q->where('start_date', '<=', now())
-                            ->where('end_date', '>=', now());
-                    });
-            })
-            ->get();
+        $this->availableRooms = Room::where('is_available', true)->get();
     }
 
     public function loadEvents()
